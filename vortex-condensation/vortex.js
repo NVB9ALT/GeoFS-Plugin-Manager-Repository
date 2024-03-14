@@ -1,5 +1,4 @@
 geofs.cons = true;
-function runVortexCons() {
 geofs.fx.Particle.prototype = {
     create: function () {
         this._currentScale = this._options.startScale;
@@ -115,4 +114,3 @@ condensationInt = setInterval(function(){
    updateSourcePoints()
 	updateVCondensation()
 },100)
-}
