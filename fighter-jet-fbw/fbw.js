@@ -1,4 +1,3 @@
-function addFBW() {
 geofs.animation.values.cobraMode = 0;
 document.addEventListener("keydown", function(e) {
 	if (e.keyCode == 222) {
@@ -104,4 +103,3 @@ FBWint = setInterval(function(){
   computeOutputs();
   assignControls();
 }, 100)
-}
