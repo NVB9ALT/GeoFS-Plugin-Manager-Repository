@@ -1,6 +1,6 @@
-function changeAircraft() {
+
 //aircraft.json changes
-function checkAndImplementChanges() { 
+function checkAndImplementChanges() {
    if (geofs.aircraft.instance.id == 52){
 	   //now you can fly the Hughes Osage higher
       geofs.aircraft.instance.definition.zeroRPMAltitude = 80000
