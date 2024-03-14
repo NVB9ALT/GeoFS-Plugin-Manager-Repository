@@ -1,4 +1,3 @@
-function addEffects() {
 geofs.animation.values.nullAnimation = null;
 //Most of these functions developed by AriakimTaiyo
 function radians(n) {
@@ -71,7 +70,6 @@ audio.impl.html5.playFile("https://142420819-645052386429616373.preview.editmysi
 //console.log(checkPos()[0] + ", " + checkPos()[1])
 };
 jetSoundsInterval = setInterval(function(){getJetSounds()},100)
-}
 
     console.log("Original immersion SFX scripts copyright Ariakim Taiyo");
     console.log("Modified by NVB9 and Kolos26");
