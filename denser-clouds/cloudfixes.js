@@ -3,7 +3,6 @@
 //And if there's few clouds, the clouds are actually few and far between.
 //It is slightly laggier on Chromebooks but otherwise should have zero performance impact.
 
-function fixCloudsDensity() {
 geofs.advancedClouds = {};
 let clouds = true;
 geofs.advancedClouds.update = function() {
@@ -40,4 +39,3 @@ if (geofs.preferences.graphics.advancedAtmosphere == false && clouds == true) {
 geofs.savePreferences();
 };
 cloudsInterval = setInterval(function(){runBetter2dClouds()},1000)
-}
