@@ -1,3 +1,5 @@
+//CONFLICTS aircraft-fixes
+
 
 //aircraft.json changes
 function checkAndImplementChanges() {
