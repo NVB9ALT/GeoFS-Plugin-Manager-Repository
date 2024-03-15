@@ -1,3 +1,6 @@
+//CONFLICTS aircraft-improvements
+
+
 var aircraftChecked = new Boolean(0)
 var notifiedTrue1 = new Boolean(0)
 geofs.addonAircraft = {}
