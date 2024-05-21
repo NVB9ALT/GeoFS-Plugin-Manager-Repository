@@ -54,6 +54,45 @@
     geofsAddonAircraft.isF117 = 0
     geofsAddonAircraft.isMiG25 = 0
 
+//Generic addon aircraft tailhook:
+//Any aircraft running this tailhook MUST run the function on an interval of 10ms or the hook only has 10% the strength
+//All these functions made by AriakimTaiyo
+geofs.addonAircraft.wireLLAs = [[37.779434570552304, -122.60905835885147, 25]]; //geofs.aircraft.instance.llaLocation
+geofs.addonAircraft.stopForce = -(geofs.aircraft.instance.rigidBody.mass * 1.1);
+geofs.addonAircraft.landed = 0;
+geofs.addonAircraft.resolveForceVector = function(force, angle) {
+  var fx = force * (Math.cos(angle * (Math.PI/180)));
+  var fy = force * (Math.sin(angle * (Math.PI/180)));
+  return [fx, fy, 0];
+}
+geofs.addonAircraft.distance = function (pos1, pos2) {
+  var a = pos2[0] - pos1[0];
+  var b = pos2[1] - pos1[1];
+  var c = pos2[2] - pos1[2];
+  return Math.sqrt(a * a + b * b + c * c); 
+}
+//Master function
+//This has a bug where at low FPS, it misses that window where groundSpeedKnt < qty and kachows you off the back of the carrier
+//but I'm not gonna bother fixing it because approaching the carrier with CC multiplayer models turned on literally crashes my computer
+//The inconsiderate CCs think people playing GeoFS on school Chromebooks have 1000 dollars to drop on a PC that can run MSFS
+//which we obviously don't
+geofs.addonAircraft.runAddonTailhook = function(){
+   geofs.addonAircraft.wireLLAs.forEach(function(e){
+if (geofs.animation.values.gearPosition == 0 && geofs.addonAircraft.landed == 0 && geofs.animation.values.groundContact == 1 && geofs.addonAircraft.distance(geofs.aircraft.instance.llaLocation, e) < 10) {
+   console.log("Hooking detected")
+   geofs.aircraft.instance.rigidBody.applyCentralImpulse([geofs.addonAircraft.resolveForceVector(geofs.addonAircraft.stopForce, geofs.animation.values.heading360)[1], geofs.addonAircraft.resolveForceVector(geofs.addonAircraft.stopForce, geofs.animation.values.heading360)[0], geofs.addonAircraft.resolveForceVector(geofs.addonAircraft.stopForce, geofs.animation.values.heading360)[2]])
+}
+   })
+	if (geofs.animation.values.groundSpeedKnt < 10 && geofs.animation.values.groundContact == 1) {
+geofs.addonAircraft.landed = 1
+console.log("Landed")
+	}
+	if (geofs.animation.values.groundContact == 0) {
+geofs.addonAircraft.landed = 0
+console.log("Airborne")
+	}
+}
+
     geofs.debug.createMiG25GearDown = function() {
        geofs.debug.MiG25GearDown = {};
        geofs.debug.MiG25GearDown.model = new geofs.api.Model(mig25geardown)
