@@ -1,4 +1,25 @@
-    instruments.renderers.genericHUD = function (a) {
+    geofs.calculatedAOA = null;
+    function normalizeAroll() {
+       var normalized = null;
+    if (geofs.animation.values.aroll < 0) {
+       normalized = geofs.animation.values.aroll * -1
+    } else {
+       normalized = geofs.animation.values.aroll
+    }
+       return normalized
+    }
+    function verifyAoA() {
+       var verticalComp = normalizeAroll() - geofs.animation.values.atilt
+        var zeroedGLoad = geofs.animation.values.loadFactor - 1
+        var climbrate = geofs.animation.values.verticalSpeed //in ft/min or something similar
+        var pitchControl = geofs.animation.values.pitch
+        var rollControl = geofs.animation.values.roll
+        var originalAOA = geofs.animation.values.aoa
+        geofs.calculatedAOA = pitchControl//for now
+    }
+    aoaInterval = setInterval(function(){verifyAoA()},10)
+
+instruments.renderers.genericHUD = function (a) {
             var b = exponentialSmoothing("smoothKias", geofs.animation.getValue("kias"), 0.1),
                 c = [256, 256],
                 d = a.canvasAPI.context;
